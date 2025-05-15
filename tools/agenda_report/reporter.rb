@@ -6,7 +6,6 @@ module AgendaReport
     end
 
     def generate_and_send_report(daily_agenda)
-      # Generate PDF report
       pdf_filename = "daily_agenda_report.pdf"
       
       @pdf_generator.generate_with_sections(
@@ -17,7 +16,6 @@ module AgendaReport
         document_title: "Daily Agenda Report: #{Time.now.strftime('%Y-%m-%d')}"
       )
 
-      # Send email with PDF attachment
       email_response = @emailer.send_email(
         to: ENV['GMAIL_LOCATION'],
         subject: "Daily Agenda Report",
