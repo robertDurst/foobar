@@ -1,0 +1,33 @@
+name: Ruby CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        gem_path:
+          - tools/agenda_report
+          - tools/weather
+    defaults:
+      run:
+        working-directory: ${{ matrix.gem_path }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+          bundler-cache: true
+          working-directory: ${{ matrix.gem_path }}
+      - name: Install linters and test framework
+        run: |
+          gem install standard rspec
+      - name: Lint
+        run: standardrb
+      - name: Test
+        run: rspec
