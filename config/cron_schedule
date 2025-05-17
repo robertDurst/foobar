@@ -1,0 +1,1 @@
+* * * * * /usr/local/bin/ruby /app/scripts/agentic_cron.rb >> /var/log/cron.log 2>&1
